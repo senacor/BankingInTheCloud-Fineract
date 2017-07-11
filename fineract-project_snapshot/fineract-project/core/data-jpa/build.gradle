@@ -1,0 +1,81 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'http://repo.spring.io/plugins-release'
+        }
+    }
+
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE'
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+    }
+}
+
+plugins {
+    id "com.github.hierynomus.license" version "0.13.1"
+}
+
+group 'io.mifos.core'
+version '0.1.0-BUILD-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-idea'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:Athens-RELEASE'
+    }
+}
+
+dependencies {
+    compile (
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.4.1.RELEASE'],
+            [group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1.1'],
+            [group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'],
+            [group: 'io.mifos.core', name: 'lang', version: '0.1.0-BUILD-SNAPSHOT'],
+            [group: 'com.google.code.findbugs', name: 'jsr305']
+    )
+
+    testCompile (
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test'],
+//            [group: 'io.mifos.', name: 'spring-boot-starter-test'],
+            [group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4']
+    )
+}
+
+publishing {
+    publications {
+        databaseConnector(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
+
+license {
+    header rootProject.file('HEADER')
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+        xml = 'XML_STYLE'
+        yml = 'SCRIPT_STYLE'
+        yaml = 'SCRIPT_STYLE'
+    }
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'The Mifos Initiative'
+}

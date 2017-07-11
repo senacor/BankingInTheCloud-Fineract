@@ -1,0 +1,145 @@
+<!--
+ Copyright 2017 The Mifos Initiative.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<md-toolbar color="primary" class="md-whiteframe-z1">
+</md-toolbar>
+
+<fims-layout-card-over title="{{'Create new journal entry' | translate}}">
+  <form [formGroup]="form">
+  <td-steps mode="'vertical'">
+    <td-step #detailsStep label="{{'Journal Entry details' | translate}}">
+
+        <div layout="row">
+          <fims-id-input [form]="form" controlName="transactionIdentifier" [readonly]="false"></fims-id-input>
+        </div>
+        <div layout="row">
+          <md-input-container layout-margin flex>
+            <input mdInput type="date" placeholder="{{'Transaction date' | translate}}" formControlName="transactionDate"/>
+          </md-input-container>
+        </div>
+        <fims-transaction-type-select title="{{'Transaction type' | translate}}" formControlName="transactionType">
+          <ng-container *ngIf="!form.get('transactionType').pristine && form.get('transactionType').hasError('required')" translate>
+            Required
+          </ng-container>
+          <ng-container *ngIf="form.get('transactionType').hasError('invalidTransactionType')" translate>
+            Invalid transaction type
+          </ng-container>
+        </fims-transaction-type-select>
+        <div layout="row">
+          <md-input-container layout-margin flex>
+            <textarea mdInput placeholder="{{'Note(Optional)' | translate}}" formControlName="note"></textarea>
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container layout-margin flex>
+            <textarea mdInput flex placeholder="{{'Message(Optional)' | translate}}" formControlName="message"></textarea>
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <fims-employee-select flex [preSelection]="selectedClerk" [multiple]="false" (onSelectionChange)="onClerkSelectionChange($event)" title="{{'Clerk' | translate}}"></fims-employee-select>
+        </div>
+      <ng-template td-step-actions>
+        <fims-form-continue-action (onContinue)="accountsStep.open()"></fims-form-continue-action>
+      </ng-template>
+    </td-step>
+    <td-step #accountsStep label="{{'Affected Accounts' | translate}}">
+      <div layout-gt-xs="column">
+        <div layout="row">
+          <md-input-container layout-margin flex>
+            <input mdInput placeholder="{{'Search...' | translate}}" tdAutoTrim [formControl]="term"/>
+          </md-input-container>
+        </div>
+        <md-card flex>
+          <md-list flex>
+            <h3 md-subheader translate>Results</h3>
+            <md-list-item *ngFor="let account of accounts | async">
+              <div layout="row" layout-align="start center" style="width: 100%;">
+                <md-icon md-list-avatar>search</md-icon>
+                <div flex>
+                  {{account['identifier']}}
+                </div>
+                <span layout-margin>
+                    <button md-raised-button color="accent" title="{{'Debitor' | translate}}" (click)="addDebtor(account['identifier'])" layout-margin>{{'Debtor' | translate}}</button>
+                  </span>
+                <span layout-margin>
+                    <button md-raised-button color="accent" title="{{'Creditor' | translate}}" (click)="addCreditor(account['identifier'])" layout-margin>{{'Creditor' | translate}}</button>
+                  </span>
+              </div>
+            </md-list-item>
+          </md-list>
+        </md-card>
+        <div layout="row">
+          <md-card flex>
+            <md-list formArrayName="debtors">
+              <h3 md-subheader translate>Debtor</h3>
+              <md-list-item class="active" *ngFor="let debtor of debtors; let i = index;">
+                <div layout="row" layout-align="start center" style="width: 100%;" [formGroupName]="i">
+                  <md-icon md-list-avatar>search</md-icon>
+                  <div flex>
+                    {{debtor.get('accountNumber').value}}
+                  </div>
+                  <md-input-container layout-margin>
+                    <input mdInput type="number" placeholder="{{'amount' | translate}}" formControlName="amount"/>
+                  </md-input-container>
+                  <div>
+                    <button md-raised-button color="warn" title="{{'Remove' | translate}}" (click)="removeDebtor(i)">{{'Remove' | translate}}</button>
+                  </div>
+                </div>
+              </md-list-item>
+              <h3 md-subheader *ngIf="form.get('debtors').hasError('minItemsInvalid')" class="tc-red-600" translate>Please add minimum one debtor.</h3>
+            </md-list>
+          </md-card>
+          <md-card flex>
+            <md-list formArrayName="creditors">
+              <h3 md-subheader translate>Creditor</h3>
+              <md-list-item class="active" *ngFor="let creditor of creditors; let i = index;">
+                <div layout="row" layout-align="start center" style="width: 100%;" [formGroupName]="i">
+                  <md-icon md-list-avatar>search</md-icon>
+                  <div flex>
+                    {{creditor.get('accountNumber').value}}
+                  </div>
+                  <md-input-container layout-margin>
+                    <input mdInput type="number" placeholder="{{'Amount' | translate}}" formControlName="amount"/>
+                  </md-input-container>
+                  <div>
+                    <button md-raised-button color="warn" title="{{'Remove' | translate}}" (click)="removeCreditor(i)">{{'Remove' | translate}}</button>
+                  </div>
+                </div>
+              </md-list-item>
+              <h3 md-subheader *ngIf="form.get('creditors').hasError('minItemsInvalid')" class="tc-red-600" translate>Please add minimum one creditor.</h3>
+            </md-list>
+          </md-card>
+        </div>
+        <p *ngIf="!form.pristine && form.hasError('sumInvalid')" class="tc-red-600" translate>
+          Sum of Debtors and sum of Creditors must match.
+        </p>
+      </div>
+    </td-step>
+    <td-step label="{{'Final step' | translate}}" [state]="'complete'">
+      <ng-template td-step-summary>
+        <fims-form-final-action
+          [resourceName]="'JOURNAL ENTRY'"
+          [editMode]="false"
+          [disabled]="!valid"
+          (onCancel)="onCancel()"
+          (onSave)="save()">
+        </fims-form-final-action>
+      </ng-template>
+    </td-step>
+  </td-steps>
+  </form>
+
+</fims-layout-card-over>

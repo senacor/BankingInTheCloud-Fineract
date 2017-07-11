@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        jcenter();
+    }
+}
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.13.1'
+}
+
+group 'io.mifos.core'
+version '0.1.0-BUILD-SNAPSHOT'
+
+ext.versions = [
+        springcontext : '4.3.3.RELEASE',
+        springboot    : '1.4.1.RELEASE',
+        findbugs      : '3.0.1',
+        frameworklang : '0.1.0-BUILD-SNAPSHOT'
+]
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'license'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+dependencies {
+    compile(
+            [group: 'org.springframework', name: 'spring-context', version: versions.springcontext],
+            [group: 'com.google.code.findbugs', name: 'jsr305', version: versions.findbugs],
+            [group: 'io.mifos.core', name: 'lang', version: versions.frameworklang],
+            [group: 'com.datastax.cassandra', name: 'cassandra-driver-core', version: '3.0.1'],
+            [group: 'com.datastax.cassandra', name: 'cassandra-driver-mapping', version: '3.0.1'],
+            [group: 'com.datastax.cassandra', name: 'cassandra-driver-extras', version: '3.0.1']
+    )
+
+    testCompile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springboot]
+    )
+}
+
+
+publishing {
+    publications {
+        cassandraPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
+
+license {
+    header rootProject.file('HEADER')
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'The Mifos Initiative'
+}

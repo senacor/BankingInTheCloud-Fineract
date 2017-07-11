@@ -1,0 +1,55 @@
+<!--
+ Copyright 2017 The Mifos Initiative.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<td-steps mode="'vertical'">
+  <td-step #detailsStep label="{{'Office details' | translate}}"
+           [state]="detailForm.valid ? 'complete' : detailForm.pristine ? 'none' : 'required'">
+    <form [formGroup]="detailForm">
+      <div layout="row">
+        <fims-id-input [form]="detailForm" controlName="identifier" [readonly]="editMode"></fims-id-input>
+      </div>
+      <div layout="row">
+        <md-input-container layout-margin flex>
+          <input mdInput placeholder="{{'Name' | translate}}" formControlName="name" tdAutoTrim/>
+          <md-error *ngIf="detailForm.get('name').hasError('required')" translate>Required</md-error>
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container layout-margin flex>
+          <input mdInput placeholder="{{'Description(optional)' | translate}}" formControlName="description" tdAutoTrim/>
+        </md-input-container>
+      </div>
+    </form>
+    <ng-template td-step-actions>
+      <fims-form-continue-action (onContinue)="addressStep.open()"></fims-form-continue-action>
+    </ng-template>
+  </td-step>
+  <td-step #addressStep label="{{'Office Address(optional)' | translate}}"
+           [state]="addressForm.valid ? 'complete' : addressForm.pristine ? 'none' : 'required'">
+    <fims-address-form #addressForm [formData]="addressFormData"></fims-address-form>
+  </td-step>
+  <td-step label="{{'Final step' | translate}}" [state]="'complete'" class="disable-pointer">
+    <ng-template td-step-summary>
+      <fims-form-final-action
+        [resourceName]="'OFFICE'"
+        [editMode]="editMode"
+        [disabled]="formsInvalid()"
+        (onCancel)="cancel()"
+        (onSave)="save()" flex>
+      </fims-form-final-action>
+    </ng-template>
+  </td-step>
+</td-steps>

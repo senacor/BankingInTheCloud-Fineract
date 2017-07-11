@@ -1,0 +1,44 @@
+group 'io.mifos'
+
+task publishApiToMavenLocal {
+    dependsOn gradle.includedBuild('api').task(':publishToMavenLocal')
+}
+
+task publishTestToMavenLocal {
+    mustRunAfter publishApiToMavenLocal
+    dependsOn gradle.includedBuild('test').task(':publishToMavenLocal')
+}
+
+task publishLibraryToMavenLocal {
+    mustRunAfter publishApiToMavenLocal
+    dependsOn gradle.includedBuild('library').task(':publishToMavenLocal')
+}
+
+task publishComponentTestToMavenLocal {
+    mustRunAfter publishApiToMavenLocal
+    mustRunAfter publishLibraryToMavenLocal
+    mustRunAfter publishTestToMavenLocal
+    dependsOn gradle.includedBuild('component-test').task(':publishToMavenLocal')
+}
+
+task publishToMavenLocal {
+    group 'all'
+    dependsOn publishApiToMavenLocal
+    dependsOn publishTestToMavenLocal
+    dependsOn publishLibraryToMavenLocal
+    dependsOn publishComponentTestToMavenLocal
+}
+
+task licenseFormat {
+    group 'all'
+    dependsOn gradle.includedBuild('api').task(':licenseFormat')
+    dependsOn gradle.includedBuild('library').task(':licenseFormat')
+    dependsOn gradle.includedBuild('test').task(':licenseFormat')
+    dependsOn gradle.includedBuild('component-test').task(':licenseFormat')
+}
+
+task prepareForTest {
+    group 'all'
+    dependsOn publishToMavenLocal
+    dependsOn gradle.includedBuild('component-test').task(':build')
+}

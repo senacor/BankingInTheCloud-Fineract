@@ -1,0 +1,34 @@
+buildscript {
+    ext {
+        springBootVersion = '1.4.1.RELEASE'
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath ("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.13.1'
+}
+
+apply from: '../shared.gradle'
+
+dependencies {
+    compile(
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-jetty'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test'],
+            [group: 'com.google.code.gson', name: 'gson'],
+            [group: 'io.jsonwebtoken', name: 'jjwt', version: versions.jjwt],
+            [group: 'io.mifos.core', name: 'api', version: versions.frameworkapi],
+            [group: 'io.mifos.core', name: 'test', version: versions.frameworktest],
+            [group: 'io.mifos.anubis', name: 'library', version: rootProject.version],
+            [group: 'io.mifos.anubis', name: 'api', version: rootProject.version],
+            [group: 'io.mifos.anubis', name: 'test', version: rootProject.version]
+    )
+}

@@ -1,0 +1,6 @@
+rootProject.name = 'permitted-feign-client'
+
+includeBuild 'api'
+includeBuild 'library'
+includeBuild 'another-for-test'
+includeBuild 'component-test'

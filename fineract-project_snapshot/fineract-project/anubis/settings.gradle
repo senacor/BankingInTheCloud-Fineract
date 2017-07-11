@@ -1,0 +1,6 @@
+rootProject.name = 'anubis'
+
+includeBuild 'api'
+includeBuild 'library'
+includeBuild 'test'
+includeBuild 'component-test'
