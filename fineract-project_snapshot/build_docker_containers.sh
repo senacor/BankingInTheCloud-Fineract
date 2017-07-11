@@ -18,15 +18,6 @@ port=8081
 
 fineractProjectFolder="fineract-project"
 
-#applicationYmlFolder="service/src/main/resources"
-#applicationYmlFile="application.yml"
-#applicationYamlFile="application.yaml"
-# the version must match the configuration of the name in the bootstrap.yml of the microservice
-#applicationYmlVersion="v1"
-
-# create config directory (if it does not exist yet)
-#mkdir -p config
-
 # move into fineract-project folder
 cd $fineractProjectFolder
 
@@ -57,21 +48,6 @@ do
     # build docker-container for microservice
     docker build -t $dockerTagPrefix/$ms:$dockerTagVersion . 
 
-    # copy the application.yml file of the microservice to the config directory
-    #applicationYmlConfigFile=$ms-$applicationYmlVersion-default.yml
-    #{ # try
-    #    cp $applicationYmlFolder/$applicationYmlFile ../config/$applicationYmlConfigFile
-    #} || { # catch
-    #    cp $applicationYmlFolder/$applicationYamlFile ../config/$applicationYmlConfigFile
-    #}
     cd ..
 done
 
-## fims web-app not within docker container in current setup, run the fims-web-app from console by hand (e.g. "npm run dev" in the fims-web-app folder) 
-#echo ::::: Build Fims-Web-App
-#cd fims-web-app
-#npm run build
-#echo 'FROM nginx:1.11-alpine' > Dockerfile
-#echo 'COPY dist /usr/share/nginx/html' >> Dockerfile
-#docker build -t $dockerTagPrefix/fims-web-app:$dockerTagVersion .
-#cd ..
