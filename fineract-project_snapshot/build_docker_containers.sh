@@ -2,8 +2,8 @@
 
 ## call script like this for first time: ./build_all_docker_containers.sh 0.1.0 v1
 
-dockerTagPrefix={$1||0.1.0}
-dockerTagVersion={$2||0.1.0}
+dockerTagPrefix=$1
+dockerTagVersion=$2
 # set the variables to default "0.1.0" and "v1" if they were not set by user
 if [$dockerTagPrefix == ""]
   then
