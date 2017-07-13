@@ -15,6 +15,8 @@ if [$dockerTagVersion == ""]
 fi
 
 port=8081
+portCounter=1
+debugPortOffset=1000
 
 fineractProjectFolder="fineract-project"
 
@@ -29,24 +31,28 @@ for ms in "${microservices[@]}"
 do
     if [ "$ms" == "provisioner" ] ; then
         port=9090
+    else
+        port=$((port + counter))
     fi
+
+    debugPort=$((port - debugPortOffset))
 
     # go into microservice directory
     cd $ms
 
     # create docker-file for the microservice
-    echo ::::: Create Dockerfile $ms
+    echo ::::: Create Dockerfile $ms with port $port
     echo 'FROM openjdk:8-jre-alpine' > Dockerfile
     echo 'VOLUME /tmp' >> Dockerfile
     echo 'ADD service/build/libs/service-0.1.0-BUILD-SNAPSHOT-boot.jar app.jar' >> Dockerfile
     echo "RUN /bin/sh -c 'touch /app.jar\'" >> Dockerfile
     echo 'ENV JAVA_OPTS=""' >> Dockerfile
     echo 'EXPOSE '${port} >> Dockerfile
-    echo 'ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]' >> Dockerfile
+    echo 'ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-Xdebug", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${debugPort}","-jar","/app.jar"]' >> Dockerfile
     echo ::::: Building docker container $ms
 
     # build docker-container for microservice
-    docker build -t $dockerTagPrefix/$ms:$dockerTagVersion . 
+    #docker build -t $dockerTagPrefix/$ms:$dockerTagVersion . 
 
     cd ..
 done

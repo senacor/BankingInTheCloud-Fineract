@@ -79,9 +79,10 @@ services:
     image: bootcamp/provisioner
     container_name: provisioner
     working_dir: /
-    command: java -jar app.jar
+#    command: java -jar app.jar
     ports:
       - "9090:9090"
+      - "8090:8090"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://config:8888
     depends_on:
