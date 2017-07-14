@@ -38,9 +38,9 @@ We call the services that hold the functional parts of the application "function
 
 #### Running the core-services
 
-#### Running the fims-web-app
-
 #### Running the functional services
+
+#### Running the fims-web-app
 
 ### Initializing the application by sending requests through postman
 
