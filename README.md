@@ -10,23 +10,23 @@ The master branch holds the latest stable version. New snapshots are created in 
 
 We call the services that all the other services depend on "core services":
 
-* spring-boot config (config): the configuration server used to configure the services without having to deploy them when the configuration changes
-* eureka (discovery): the service registry / service discovery - through this service the microservices find each other
-* cassandra: A no-sql database used to store the events
-* activemq: The event bus that handles the event sourcing (events-history stored in cassandra)
-* mariadb (mysql): The database where all the actual relational data is stored
+* ***config*** (spring-boot config server): the configuration server used to configure the services without having to deploy them when the configuration changes
+* ***discovery*** (eureka): the service registry / service discovery - through this service the microservices find each other
+* ***cassandra***: A no-sql database used to store the events
+* ***activemq***: The event bus that handles the event sourcing (events-history stored in cassandra)
+* ***mariadb*** (mysql): The database where all the actual relational data is stored
 
 
 ### Functional Services
 
 We call the services that hold the functional parts of the application "functional services":
 
-* provisioner
-* identity
-* office
-* customer
-* accounting
-* portfolio
+* ***provisioner***
+* ***identity***
+* ***office***
+* ***customer***
+* ***accounting***
+* ***portfolio***
 
 ## Running the project
 
