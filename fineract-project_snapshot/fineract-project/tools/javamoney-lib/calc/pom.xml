@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.javamoney.lib</groupId>
+		<artifactId>javamoney-lib</artifactId>
+		<version>0.9-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>javamoney-calc</artifactId>
+	<name>Money and Currency - JavaMoney Calculations</name>
+	<packaging>bundle</packaging>
+	<!-- Try to find workaround for problem attaching sources to bundle, as 
+		of now manually switching to "jar" works -->
+	<properties>
+		<jdkVersion>1.8</jdkVersion>
+		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
+		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

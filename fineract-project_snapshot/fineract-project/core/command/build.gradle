@@ -1,0 +1,81 @@
+buildscript {
+    repositories {
+        jcenter();
+    }
+}
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.13.1'
+}
+
+group 'io.mifos.core'
+version '0.1.0-BUILD-SNAPSHOT'
+
+ext.versions = [
+        springcontext             : '4.3.3.RELEASE',
+        springboot                : '1.4.1.RELEASE',
+        gson                      : '2.5',
+        findbugs                  : '3.0.1',
+        frameworklangversion      : '0.1.0-BUILD-SNAPSHOT',
+        frameworkasyncversion     : '0.1.0-BUILD-SNAPSHOT',
+        frameworkcassandraversion : '0.1.0-BUILD-SNAPSHOT'
+]
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'license'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+
+dependencies {
+    compile(
+            [group: 'org.springframework', name: 'spring-context', version: versions.springcontext],
+            [group: 'com.google.code.findbugs', name: 'jsr305', version: versions.findbugs],
+            [group: 'org.springframework', name: 'spring-jms', version: versions.springcontext],
+            [group: 'org.apache.activemq', name: 'activemq-spring', version: '5.13.2'],
+            [group: 'com.google.code.gson', name: 'gson', version: versions.gson],
+            [group: 'io.mifos.core', name: 'lang', version: versions.frameworklangversion],
+            [group: 'io.mifos.core', name: 'async', version: versions.frameworkasyncversion],
+            [group: 'io.mifos.core', name: 'cassandra', version: versions.frameworkcassandraversion]
+    )
+
+    testCompile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springboot]
+    )
+}
+
+publishing {
+    publications {
+        commandPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
+
+jar {
+    from sourceSets.main.allSource
+}
+
+license {
+    header rootProject.file('HEADER')
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'The Mifos Initiative'
+}

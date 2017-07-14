@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath ("io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE")
+    }
+}
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.13.1'
+}
+
+group 'io.mifos'
+version '0.1.0-BUILD-SNAPSHOT'
+
+ext.versions = [
+        frameworkapi    : '0.1.0-BUILD-SNAPSHOT',
+        frameworktest   : '0.1.0-BUILD-SNAPSHOT',
+        frameworkanubis : '0.1.0-BUILD-SNAPSHOT',
+        validator       : '5.3.0.Final',
+        springcontext   : '4.3.3.RELEASE',
+        activeMQ        : '5.13.2',
+]
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:Athens-RELEASE'
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR1'
+    }
+}
+
+dependencies {
+    compile(
+            [group: 'com.google.code.findbugs', name: 'jsr305'],
+            [group: 'io.mifos.core', name: 'api', version: versions.frameworkapi],
+            [group: 'io.mifos.core', name: 'test', version: versions.frameworktest],
+            [group: 'io.mifos.anubis', name: 'test', version: versions.frameworkanubis],
+            [group: 'org.eclipse.aether', name: 'aether-api', version: '1.1.0'],
+            [group: 'org.eclipse.aether', name: 'aether-spi', version: '1.1.0'],
+            [group: 'org.eclipse.aether', name: 'aether-util', version: '1.1.0'],
+            [group: 'org.eclipse.aether', name: 'aether-impl', version: '1.1.0'],
+            [group: 'org.eclipse.aether', name: 'aether-connector-basic', version: '1.1.0'],
+            [group: 'org.eclipse.aether', name: 'aether-transport-file', version: '1.1.0'],
+            [group: 'org.eclipse.aether', name: 'aether-transport-http', version: '1.1.0'],
+            [group: 'org.apache.maven', name: 'maven-aether-provider', version: '3.1.0'],
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-eureka-server'],
+            [group: 'org.springframework', name: 'spring-jms', version: versions.springcontext],
+            [group: 'org.apache.activemq', name: 'activemq-broker', version: versions.activeMQ],
+            [group: 'org.apache.activemq', name: 'activemq-spring', version: versions.activeMQ],
+    )
+}
+
+jar {
+    from sourceSets.main.allSource
+}
+
+license {
+    exclude("**/aether/*.java")
+    exclude("**/aether/*.html")
+    header rootProject.file('HEADER')
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+        xml = 'XML_STYLE'
+        yml = 'SCRIPT_STYLE'
+        yaml = 'SCRIPT_STYLE'
+    }
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'The Mifos Initiative'
+}
+
+
+publishing {
+    publications {
+        serviceStarterPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}

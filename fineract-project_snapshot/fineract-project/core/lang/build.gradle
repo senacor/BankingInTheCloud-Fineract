@@ -1,0 +1,82 @@
+buildscript {
+    repositories {
+        jcenter();
+    }
+
+    dependencies {
+        classpath ("io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE")
+    }
+}
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.13.1'
+}
+
+group 'io.mifos.core'
+version '0.1.0-BUILD-SNAPSHOT'
+
+ext.versions = [
+        springcontext        : '4.3.3.RELEASE',
+        springboot           : '1.4.1.RELEASE',
+        findbugs             : '3.0.1'
+]
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
+apply plugin: 'license'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:Athens-RELEASE'
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR1'
+    }
+}
+
+dependencies {
+    compile(
+            [group: 'com.google.code.findbugs', name: 'jsr305', version: versions.findbugs],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springboot],
+            [group: 'org.springframework', name: 'spring-context', version: versions.springcontext],
+    )
+
+    testCompile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springboot]
+    )
+}
+
+jar {
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        langPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
+
+license {
+    header rootProject.file('HEADER')
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'The Mifos Initiative'
+}

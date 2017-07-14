@@ -1,0 +1,80 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
+    }
+}
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.13.1'
+}
+
+group 'io.mifos.core'
+version '0.1.0-BUILD-SNAPSHOT'
+
+ext.versions = [
+        frameworklang        : '0.1.0-BUILD-SNAPSHOT',
+        frameworkapi         : '0.1.0-BUILD-SNAPSHOT',
+        springcontext        : '4.3.3.RELEASE',
+        springsecurity       : '4.2.2.RELEASE',
+        springboot           : '1.4.1.RELEASE',
+        findbugs             : '3.0.1',
+]
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'license'
+apply plugin: 'io.spring.dependency-management'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+dependencies {
+    compile(
+            [group: 'io.mifos.core', name: 'lang', version: versions.frameworklang],
+            [group: 'io.mifos.core', name: 'api', version: versions.frameworkapi],
+            [group: 'org.springframework', name: 'spring-context', version: versions.springcontext],
+            [group: 'org.springframework.security', name: 'spring-security-web', version: versions.springsecurity],
+            [group: 'com.google.code.findbugs', name: 'jsr305', version: versions.findbugs]
+    )
+
+    testCompile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springboot]
+    )
+}
+
+jar {
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        asyncPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
+
+license {
+    header rootProject.file('HEADER')
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'The Mifos Initiative'
+}

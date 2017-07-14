@@ -1,0 +1,44 @@
+buildscript {
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
+    }
+}
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.13.1'
+}
+
+
+apply from: '../shared.gradle'
+
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    compile (
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-feign'],
+            [group: 'org.hibernate', name: 'hibernate-validator', version: versions.hibernatevalidator],
+            [group: 'com.google.code.gson', name: 'gson'],
+            [group: 'io.mifos.core', name: 'api', version: versions.frameworkapi],
+            [group: 'io.mifos.identity', name: 'api', version: versions.frameworkidentity]
+    )
+
+    testCompile(
+            [group: 'io.mifos.core', name: 'test', version: versions.frameworktest],
+    )
+}
+
+publishing {
+    publications {
+        apiPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
