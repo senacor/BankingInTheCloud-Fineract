@@ -32,7 +32,8 @@ eureka:
     leaseRenewalIntervalInSeconds: 1
   client:
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      # cloud setup, IP points to eureka on AWS
+      defaultZone: http://35.158.23.99:8761/eureka/
 
 server:
   port: 8081
