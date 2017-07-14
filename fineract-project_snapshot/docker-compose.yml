@@ -100,7 +100,7 @@ services:
     image: bootcamp/office
     container_name: office
     working_dir: /
-    command: java -jar app.jar
+#    command: java -jar app.jar
     ports:
       - "8082:8082"
     environment:
@@ -121,7 +121,7 @@ services:
     image: bootcamp/customer
     container_name: customer
     working_dir: /
-    command: java -jar app.jar
+#    command: java -jar app.jar
     ports:
       - "8083:8083"
     environment:
@@ -142,7 +142,7 @@ services:
     image: bootcamp/accounting
     container_name: accounting
     working_dir: /
-    command: java -jar app.jar
+#    command: java -jar app.jar
     ports:
       - "8084:8084"
     environment:
@@ -163,7 +163,7 @@ services:
     image: bootcamp/portfolio
     container_name: portfolio
     working_dir: /
-    command: java -jar app.jar
+#    command: java -jar app.jar
     ports:
       - "8085:8085"
     environment:
