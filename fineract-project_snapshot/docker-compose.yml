@@ -67,7 +67,7 @@ services:
       - "8081:8081"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=identity-ttr
+      - SPRING_APPLICATION_NAME=identity_ttr-v1
       - SPRING_CLOUD_CONFIG_LABEL=ttr
     depends_on:
         - mariadb
@@ -88,7 +88,7 @@ services:
       - "8090:8090"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=provisioner-ttr
+      - SPRING_APPLICATION_NAME=provisioner_ttr-v1
       - SPRING_CLOUD_CONFIG_LABEL=ttr
     depends_on:
         - mariadb
@@ -109,7 +109,7 @@ services:
       - "8082:8082"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=office-ttr
+      - SPRING_APPLICATION_NAME=office_ttr-v1
       - SPRING_CLOUD_CONFIG_LABEL=ttr
     depends_on:
       - mariadb
@@ -130,7 +130,7 @@ services:
       - "8083:8083"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=customer-ttr
+      - SPRING_APPLICATION_NAME=customer_ttr-v1
       - SPRING_CLOUD_CONFIG_LABEL=ttr
     depends_on:
       - mariadb
@@ -151,7 +151,7 @@ services:
       - "8084:8084"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=accounting-ttr
+      - SPRING_APPLICATION_NAME=accounting_ttr-v1
       - SPRING_CLOUD_CONFIG_LABEL=ttr
     depends_on:
       - mariadb
@@ -172,7 +172,7 @@ services:
       - "8085:8085"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=portfolio-ttr
+      - SPRING_APPLICATION_NAME=portfolio_ttr-v1
       - SPRING_CLOUD_CONFIG_LABEL=ttr
     depends_on:
       - mariadb
