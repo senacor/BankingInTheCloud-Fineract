@@ -169,6 +169,12 @@ Once started the fims-web-app will be available in your browser at ```localhost:
 
 Hint: Starting the fims-web-app can take some time. Being stuck at ```92% (...)``` is normal. Just give it some time.
 
+Once the fims-web-app was started successfully the last output line should be:
+```
+webpack: Compiled successfully.
+```
+
+If the fims-web-app could not be started successfully you will see nodeJs errors as command line output.
 
 ### Initializing the application by sending requests through postman
 
@@ -259,7 +265,7 @@ and
 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8090
 ```
 
-Note that ```-Xdebug``` is only necessary if you sun an old Java version. From 1.6 up you should not need it any more (but you can still add it, it will be ignored).
+Note that ```-Xdebug``` is only necessary if you run an old Java version. From 1.6 up you should not need it any more (but you can still add it, it will be ignored).
 
 
 For the functional service we already set the remote debugging as enabled through the generated docker files. You can check in the Dockerfile each functional service folder.
@@ -274,11 +280,11 @@ For the functional service we already set the remote debugging as enabled throug
 
 You can use the tool of your choice to connect to the databases - we will explain the setup with dBeaver here.
 
-Download and install the [Enterprise Edition of dBeaver](http://dbeaver.jkiss.org/download/enterprise/). Note that its important that you download the enterprise edition - the community edition does not include the drivers for cassandra out of the box. The enterprise edition is also for free, but not open source.
+Download and install the [Enterprise Edition of dBeaver](http://dbeaver.jkiss.org/download/enterprise/). Note that its important that you download the enterprise edition - the community edition does not include the drivers for cassandra out of the box. The enterprise edition is for free as well, but not open source.
 
 #### Connect to cassandra
 
-1. Open dBeager Enterprise Edition
+1. Open dBeaver Enterprise Edition
 2. Select "New Connection" (on first startup this will pop up automatically)
 3. Select "Cassandra CQL" from the driver list >> Next
 4. Check port is set to 9042 (should be by default) >> Next >> Next
@@ -295,7 +301,7 @@ user: root
 password: mysql
 ```
 
-1. Open dBeager Enterprise Edition
+1. Open dBeaver Enterprise Edition
 2. Select "New Connection" (on first startup this will pop up automatically)
 3. Select MySQL >> Next
 4. Enter database, user and password >> Next >> Next
