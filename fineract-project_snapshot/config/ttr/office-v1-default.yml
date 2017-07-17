@@ -29,7 +29,8 @@ activemq:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      # cloud setup, IP points to eureka on AWS
+      defaultZone: http://35.158.23.99:8761/eureka/
       registerWithEureka: true
     fetchRegistry: true
     initialInstanceInfoReplicationIntervalSeconds: 0
