@@ -244,10 +244,10 @@ user: fims
 password: p@s$w0r&
 ```
 
-Note that user antony does not have any roles set  up, so if you log in as antony you cannot really do anything. 
-User fims is created in the the last two requests (user creation and role assignment) in the postman request-list. This user has admin rights and is able to manage offices, accounts, customers (...).
+Note that user antony does not have any roles set  up, so if you log in as ```antony``` you cannot really do anything. 
+User ```fims``` is created in the the last two requests (user creation and role assignment) in the postman request-list. This user has admin rights and is able to manage offices, accounts, customers (...).
 
-To sign in the microservices (core and functional services) have to be started, as well as the fims-web-app.  
+Login is possible after the microservices (core and functional services), as well as the fims-web-app, are all started.  
 
 
 ## Extending the project
