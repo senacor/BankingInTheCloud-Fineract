@@ -193,7 +193,10 @@ Basically you have to do the following:
 1. Start Postman and load both files into Postman by clicking ```Import``` and then selecting the file.
 2. You will see the collection "Fineract-Initial-Requests" in the left sidebar.
 3. Open the collection by clicking on it.
-4. Execute the requests one by one by selecting them in the collection and then pressing "Send".
+4. Select the environment "Fineract-Initial-Setup-Environment" in the environment drop-down (top right corner in Postman).
+5. Execute the requests one by one by selecting them in the collection and then pressing "Send".
+
+Note: If you receive the error ```Failed to import data: Could not import: TypeError: Cannot read property 'id' of null``` upon importing the files you can ignore it.
 
 The first request will retrieve a token. For this request you basically only need the ```provisioner``` and the ```identity``` service running (until request 04.1 you don't need the other services to be started). The response should look like this (obviously with a different token...):
 ```
