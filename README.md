@@ -267,7 +267,6 @@ and
 
 Note that ```-Xdebug``` is only necessary if you run an old Java version. From 1.6 up you should not need it any more (but you can still add it, it will be ignored).
 
-
 For the functional service we already set the remote debugging as enabled through the generated docker files. You can check in the Dockerfile each functional service folder.
 
 
