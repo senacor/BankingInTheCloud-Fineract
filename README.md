@@ -205,6 +205,7 @@ The first request will retrieve a token. For this request you basically only nee
 
 If you don't get a token there is something wrong with your setup. The token is necessary for authentication in other requests thus be sure that this steps works before you go on.
 
+
 #### What if you don't retrieve a token
 
 1. Check if the microservices ```provisioner``` and ```identity``` are running correctly. It can help to start only those two services in different terminals and check the command line output.
