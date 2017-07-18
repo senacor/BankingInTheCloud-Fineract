@@ -67,8 +67,9 @@ services:
       - "8081:8081"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=identity_ttr-v1
-      - SPRING_PROFILES_ACTIVE=ttr_dev
+      - SPRING_CLOUD_CONFIG_LABEL=extract-config-and-discovery-to-cloud
+      - SPRING_APPLICATION_NAME=identity_<user>-v1
+      - SPRING_PROFILES_ACTIVE=<user>_<stage>
     depends_on:
         - mariadb
         - cassandra
@@ -88,8 +89,9 @@ services:
       - "8090:8090"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=provisioner_ttr-v1
-      - SPRING_PROFILES_ACTIVE=ttr_dev
+      - SPRING_CLOUD_CONFIG_LABEL=extract-config-and-discovery-to-cloud
+      - SPRING_APPLICATION_NAME=provisioner_<user>-v1
+      - SPRING_PROFILES_ACTIVE=<user>_<stage>
     depends_on:
         - mariadb
         - cassandra
@@ -109,8 +111,9 @@ services:
       - "8082:8082"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=office_ttr-v1
-      - SPRING_PROFILES_ACTIVE=ttr_dev
+      - SPRING_CLOUD_CONFIG_LABEL=extract-config-and-discovery-to-cloud
+      - SPRING_APPLICATION_NAME=office_<user>-v1
+      - SPRING_PROFILES_ACTIVE=<user>_<stage>
     depends_on:
       - mariadb
       - cassandra
@@ -130,8 +133,9 @@ services:
       - "8083:8083"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=customer_ttr-v1
-      - SPRING_PROFILES_ACTIVE=ttr_dev
+      - SPRING_CLOUD_CONFIG_LABEL=extract-config-and-discovery-to-cloud
+      - SPRING_APPLICATION_NAME=customer_<user>-v1
+      - SPRING_PROFILES_ACTIVE=<user>_<stage>
     depends_on:
       - mariadb
       - cassandra
@@ -151,8 +155,9 @@ services:
       - "8084:8084"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=accounting_ttr-v1
-      - SPRING_PROFILES_ACTIVE=ttr_dev
+      - SPRING_CLOUD_CONFIG_LABEL=extract-config-and-discovery-to-cloud
+      - SPRING_APPLICATION_NAME=accounting_<user>-v1
+      - SPRING_PROFILES_ACTIVE=<user>_<stage>
     depends_on:
       - mariadb
       - cassandra
@@ -172,8 +177,9 @@ services:
       - "8085:8085"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://35.158.23.99:8888
-      - SPRING_APPLICATION_NAME=portfolio_ttr-v1
-      - SPRING_PROFILES_ACTIVE=ttr_dev
+      - SPRING_CLOUD_CONFIG_LABEL=extract-config-and-discovery-to-cloud
+      - SPRING_APPLICATION_NAME=portfolio_<user>-v1
+      - SPRING_PROFILES_ACTIVE=<user>_<stage>
     depends_on:
       - mariadb
       - cassandra
