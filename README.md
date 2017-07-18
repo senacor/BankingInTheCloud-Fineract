@@ -6,6 +6,8 @@ The master branch holds the latest stable version. New snapshots are created in 
 
 ## Project information
 
+The fineract project is based on a microservices architecture. There are several independent services that communicate with each other over HTTP (REST services). In order to make it easier to discuss certain setup issues we classified the services into two main categories.
+
 ### Core Services
 
 We call the services that all the other services depend on "core services":
@@ -30,7 +32,7 @@ We call the services that hold the functional parts of the application "function
 
 ## Running the project
 
-The project files and build scripts are located in the snapshot-folder: ```fineract-project_snapshot```
+The project files and build scripts are located in the [fineract-project_snapshot folder](https://github.com/senacor/BankingInTheCloud-Fineract/tree/master/fineract-project_snapshot).
 
 This folder contains all the files necessary to build the microservices and containers and run them. The build scripts mentioned in the following sub-section are located in that folder as well.
 
@@ -150,7 +152,7 @@ identity       | 18:38:21.708 [main] INFO  o.s.b.c.e.j.JettyEmbeddedServletConta
 
 #### Running the fims-web-app
 
-Navigate into the fims-web-app folder:
+Navigate into the [fims-web-app folder](https://github.com/senacor/BankingInTheCloud-Fineract/tree/master/fineract-project_snapshot/fineract-project/fims-web-app):
 ```
 fineract-project/fims-web-app
 ```
@@ -182,7 +184,8 @@ Once all services (and the fims-web-app) are started you will have to create som
 
 #### Loading and sending requests
 
-We provide a postman-request-collection as well as a postman-environment that defines variables that are used to hold values received in responses. Both files are located in the ```postman-initial-requests``` folder:
+We provide a postman-request-collection as well as a postman-environment that defines variables that are used to hold values received in responses. Both files are located in the 
+[postman-initial-requests folder](https://github.com/senacor/BankingInTheCloud-Fineract/tree/master/fineract-project_snapshot/postman-initial-requests):
 ```
 postman-initial-requests/Fineract-Initial-Setup-Environment.postman_environment.json
 postman-initial-requests/Fineract-Initial-Requests.postman_collection.json
@@ -295,7 +298,7 @@ Download and install the [Enterprise Edition of dBeaver](http://dbeaver.jkiss.or
 
 #### Connect ot mariadb
 
-In order to connect to mariadb you need the database, user and password defined for the database. You can find this in the provisioner configuration yaml file in the ```config/```folder.
+In order to connect to mariadb you need the database, user and password defined for the database. You can find this in the provisioner configuration yaml file in the [config folder](https://github.com/senacor/BankingInTheCloud-Fineract/tree/master/fineract-project_snapshot/config).
 
 User and password should looks like this:
 ```
