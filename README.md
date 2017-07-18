@@ -267,8 +267,18 @@ Login is possible after the microservices (core and functional services), as wel
 
 Note: this part of the documentation is to be filled in!
 
+### Moving config and discovery to the cloud
+
+As a first step we want to save some resources on our local machine. Running all the services locally is quite resource-intense, so let's move some of them to the cloud.
+
+As a start we move the config server and the discovery (Eureka) to the cloud, because those services can be easily extracted and they can be shared between users (more on that later).
+
+(...) 
 
 
+### Moving all the services to the cloud
+
+Careful: This can get expensive ;)
 
 
 
