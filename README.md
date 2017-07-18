@@ -30,7 +30,9 @@ We call the services that hold the functional parts of the application "function
 * **accounting**
 * **portfolio**
 
-## Running the project
+## Running the project locally
+
+This section describes how you can build and run the microservices on your machine, locally.
 
 The project files and build scripts are located in the [fineract-project_snapshot folder](https://github.com/senacor/BankingInTheCloud-Fineract/tree/master/fineract-project_snapshot).
 
@@ -123,7 +125,7 @@ There will be quite a lot of console output upon statup. The startup should be f
 Started EurekaApplication in xx.xxx seconds (JVM running for xx.xxx)
 ```
 
-Note that it can happen that eureka finishes before one of the other services, but usually it is the last one to finish, so you will see this message. In case one of the other services finishes startup last there will be a different service name after started. 
+Note that it can happen that eureka is not the last service to finish the startup. In case one of the other services finishes last there will be a different service name printed last. 
 
 You can scroll up to check the command line output of all the services.
 
@@ -255,6 +257,19 @@ Note that user antony does not have any roles set  up, so if you log in as ```an
 User ```fims``` is created in the the last two requests (user creation and role assignment) in the postman request-list. This user has admin rights and is able to manage offices, accounts, customers (...).
 
 Login is possible after the microservices (core and functional services), as well as the fims-web-app, are all started.  
+
+
+
+
+
+
+## Running the project in the Cloud
+
+Note: this part of the documentation is to be filled in!
+
+
+
+
 
 
 ## Extending the project
