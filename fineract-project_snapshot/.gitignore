@@ -1,3 +1,6 @@
 *.log
 *.toDelete
 **/Dockerfile
+
+# use build_user_cloud_config.sh to generate docker-compose file
+docker-compose.yml
