@@ -192,7 +192,194 @@
 			"response": []
 		},
 		{
-			"name": "03.3 Assign Identity for Tenant",
+			"name": "03.3 Login Antony",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"antonyToken\", jsonData.accessToken);",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://{{identityUrl}}/identity/v1/token?grant_type=password&username=antony&password={{antonyUserPassword}}",
+					"protocol": "http",
+					"host": [
+						"{{identityUrl}}"
+					],
+					"path": [
+						"identity",
+						"v1",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						},
+						{
+							"key": "username",
+							"value": "antony"
+						},
+						{
+							"key": "password",
+							"value": "{{antonyUserPassword}}"
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-Identifier",
+						"value": "{{tenantIdentifier}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "03.4 Change Antony Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 202\"] = responseCode.code === 202;",
+							"",
+							"postman.setEnvironmentVariable(\"antonyUserPassword\", \"dGVzdA==\");",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://{{identityUrl}}/identity/v1/users/antony/password",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{antonyToken}}",
+						"description": ""
+					},
+					{
+						"key": "User",
+						"value": "{{antonyUser}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Tenant-Identifier",
+						"value": "{{tenantIdentifier}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"password\": \"dGVzdA==\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "03.5 Login Antony with new password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"antonyToken\", jsonData.accessToken);",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://{{identityUrl}}/identity/v1/token?grant_type=password&username={{antonyUser}}&password={{antonyUserPassword}}",
+					"protocol": "http",
+					"host": [
+						"{{identityUrl}}"
+					],
+					"path": [
+						"identity",
+						"v1",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						},
+						{
+							"key": "username",
+							"value": "{{antonyUser}}"
+						},
+						{
+							"key": "password",
+							"value": "{{antonyUserPassword}}"
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Tenant-Identifier",
+						"value": "{{tenantIdentifier}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "03.6 Assign Identity for Tenant",
 			"request": {
 				"url": "http://{{provisionerUrl}}/provisioner/v1/tenants/senacor-bitc/applications",
 				"method": "PUT",
@@ -507,194 +694,7 @@
 			"response": []
 		},
 		{
-			"name": "05. Login Antony",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"antonyToken\", jsonData.accessToken);",
-							"",
-							"",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"url": {
-					"raw": "http://{{identityUrl}}/identity/v1/token?grant_type=password&username=antony&password={{antonyUserPassword}}",
-					"protocol": "http",
-					"host": [
-						"{{identityUrl}}"
-					],
-					"path": [
-						"identity",
-						"v1",
-						"token"
-					],
-					"query": [
-						{
-							"key": "grant_type",
-							"value": "password"
-						},
-						{
-							"key": "username",
-							"value": "antony"
-						},
-						{
-							"key": "password",
-							"value": "{{antonyUserPassword}}"
-						}
-					],
-					"variable": []
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "X-Tenant-Identifier",
-						"value": "{{tenantIdentifier}}",
-						"description": ""
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "05. Change Antony Password",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 202\"] = responseCode.code === 202;",
-							"",
-							"postman.setEnvironmentVariable(\"antonyUserPassword\", \"dGVzdA==\");",
-							"",
-							"",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "http://{{identityUrl}}/identity/v1/users/antony/password",
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{antonyToken}}",
-						"description": ""
-					},
-					{
-						"key": "User",
-						"value": "{{antonyUser}}",
-						"description": ""
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "X-Tenant-Identifier",
-						"value": "{{tenantIdentifier}}",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"password\": \"dGVzdA==\"\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "05. Login Antony with new password",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"antonyToken\", jsonData.accessToken);",
-							"",
-							"",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"url": {
-					"raw": "http://{{identityUrl}}/identity/v1/token?grant_type=password&username={{antonyUser}}&password={{antonyUserPassword}}",
-					"protocol": "http",
-					"host": [
-						"{{identityUrl}}"
-					],
-					"path": [
-						"identity",
-						"v1",
-						"token"
-					],
-					"query": [
-						{
-							"key": "grant_type",
-							"value": "password"
-						},
-						{
-							"key": "username",
-							"value": "{{antonyUser}}"
-						},
-						{
-							"key": "password",
-							"value": "{{antonyUserPassword}}"
-						}
-					],
-					"variable": []
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "X-Tenant-Identifier",
-						"value": "{{tenantIdentifier}}",
-						"description": ""
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "07 Create Fims Role",
+			"name": "08.1 Create FIMS Role",
 			"event": [
 				{
 					"listen": "test",
@@ -741,7 +741,7 @@
 			"response": []
 		},
 		{
-			"name": "07. Create FIMS User",
+			"name": "08.2 Create FIMS User",
 			"request": {
 				"url": "http://{{identityUrl}}/identity/v1/users",
 				"method": "POST",

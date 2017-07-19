@@ -179,6 +179,7 @@ webpack: Compiled successfully.
 ```
 
 If the fims-web-app could not be started successfully you will see nodeJs errors as command line output.
+If you receive error ```sh: 1: ng: not found``` installation did not work correctly before. Run  ```npm install``` in the fims-web-app folder again.
 
 ### Initializing the application by sending requests through postman
 
@@ -213,6 +214,8 @@ The first request will retrieve a token. For this request you basically only nee
 
 If you don't get a token there is something wrong with your setup. The token is necessary for authentication in other requests thus be sure that this steps works before you go on.
 
+For the requests with the number 08 (Create FIMS Role and Create FIMS User) the fims-web-app has to be running and you have to sign in the Antony user successfully (request 03.5, Log in Antony with new password) before running 08.1 and 08.2!
+
 
 #### What if you don't retrieve a token
 
@@ -220,7 +223,10 @@ If you don't get a token there is something wrong with your setup. The token is 
 2. Check if all core services are running correctly. Check the command line output upon startup.
 
 #### Resetting the databases if something goes wrong
-Important: Be sure to execute the requests in the right order! If you execute the requests that gives you the initial password (request "03.2 Create Identity Service for Tenant") twice you will not be able to retrieve the initial password again (due to the implementation of the identity service). If that happens - the variable antonyUserPassword is empty (undefined) - then you have to remove the relevant entries from the databases. Since this is rather complicated to do by hand we recommend that you just reset the databases and start again.
+Important: Be sure to execute the requests in the right order! If you execute the requests that gives you the initial password (request "03.2 Create Identity Service for Tenant") twice you will not be able to retrieve the initial password again (due to the implementation of the identity service).
+If that happens the variable antonyUserPassword is empty (undefined) and you will not be able to sign in antony and change has password (03.3, 03.4). 
+
+You have to remove the relevant entries from the databases. Since this is rather complicated to do by hand we recommend that you just reset the databases and start again.
 
 The easiest way to reset the databases is to remove the containers ```cassandra``` and ```mariadb```. 
 You can use the following command to retrieve the list of containers including their IDs (first column):
