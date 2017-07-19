@@ -14,7 +14,7 @@ if [$dockerTagVersion == ""]
     dockerTagVersion="v1"
 fi
 
-port=8081
+port=8080
 portCounter=1
 debugPortOffset=1000
 
