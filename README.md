@@ -1,6 +1,6 @@
 # BankingInTheCloud-Fineract
 
-This repository provides a runnable snapshot of the [Mifos I/O](https://github.com/mifosio/) project, which will be the proposed new architecture for the [apache fineract project](https://github.com/apache/fineract). Note that at the moment the Mifo I/O project is still completely detached from apache fineract. 
+This repository provides a runnable snapshot of the [Mifos I/O project](https://github.com/mifosio/), which will be the proposed new architecture for the [apache fineract project](https://github.com/apache/fineract). Note that at the moment the Mifo I/O project is still completely detached from apache fineract. 
 
 This repository was created to ensure a stable project setup during the BankingInTheCloud workshop.
 
