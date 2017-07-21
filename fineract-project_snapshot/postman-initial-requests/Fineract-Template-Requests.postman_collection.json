@@ -1,0 +1,138 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Fineract-Template-Requests",
+		"_postman_id": "08cf9e5d-7426-7b77-1e70-d1fc71c48aa2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01. Get token from system user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"rootUserToken\", jsonData.token);",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://{{provisionerUrl}}/provisioner/v1/auth/token?grant_type=password&client_id={{client_id}}&username={{rootUser}}&password={{rootUserPassword}}",
+					"protocol": "http",
+					"host": [
+						"{{provisionerUrl}}"
+					],
+					"path": [
+						"provisioner",
+						"v1",
+						"auth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "username",
+							"value": "{{rootUser}}",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "password",
+							"value": "{{rootUserPassword}}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "1. Get Token from System-User"
+			},
+			"response": []
+		},
+		{
+			"name": "02.1 Create template-v1 application",
+			"request": {
+				"url": "http://{{provisionerUrl}}/provisioner/v1/applications",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{rootUserToken}}",
+						"description": ""
+					},
+					{
+						"key": "User",
+						"value": "{{rootUser}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Tenant-Identifier",
+						"value": "{{tenantIdentifier}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"template-v1\",\n\t\"description\": \"Template Service\",\n\t\"vendor\": \"Apache Fineract\",\n\t\"homepage\": \"http://template:8086/template/v1\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "03. Get Sample",
+			"request": {
+				"url": "http://localhost:9100/template/v1/sample",
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Tenant-Identifier",
+						"value": "{{tenantIdentifier}}",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{antonyToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
