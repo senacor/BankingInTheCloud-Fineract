@@ -24,7 +24,7 @@ fineractProjectFolder="fineract-project"
 cd $fineractProjectFolder
 
 # define the microservices
-microservices=("identity" "office" "customer" "accounting" "portfolio" "provisioner")
+microservices=("identity" "office" "customer" "accounting" "portfolio" "template" "provisioner")
 
 # loop over defined microservices
 for ms in "${microservices[@]}"

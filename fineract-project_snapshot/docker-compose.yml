@@ -184,6 +184,28 @@ services:
     networks:
       - fineract
 
+  template:
+    build:
+      context: ./fineract-project/template
+    image: bootcamp/template
+    container_name: template
+    working_dir: /
+#    command: java -jar app.jar
+    ports:
+      - "8086:8086"
+      - "7086:7086"
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config:8888
+    depends_on:
+      - mariadb
+      - cassandra
+      - identity
+      - provisioner
+      - activemq
+      - discovery
+      - config
+    networks:
+      - fineract
 
 networks:
   fineract:

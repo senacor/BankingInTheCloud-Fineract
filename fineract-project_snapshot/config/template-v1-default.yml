@@ -1,0 +1,87 @@
+#
+# Copyright 2017 The Mifos Initiative
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+spring:
+  cloud:
+    discovery:
+      enabled: true
+    config:
+      enabled: false
+  activemq:
+    broker-url: tcp://activemq:61616
+
+activemq:
+  brokerUrl: tcp://activemq:61616
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+      registerWithEureka: true
+    fetchRegistry: true
+    initialInstanceInfoReplicationIntervalSeconds: 0
+    instanceInfoReplicationIntervalSeconds: 1
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 1
+  registration:
+    enabled: true
+
+server:
+  port: 9100
+  contextPath: /template/v1/*
+  max-http-header-size: 16384
+
+cassandra:
+  clusterName: datacenter1
+  contactPoints: cassandra:9042
+  keyspace: seshat
+  cl:
+    read: ONE
+    write: ONE
+    delete: ONE
+
+mariadb:
+  driverClass: org.mariadb.jdbc.Driver
+  database: seshat
+  host: mariadb
+  port: 3306
+  user: root
+  password: mysql
+
+bonecp:
+  idleMaxAgeInMinutes: 240
+  idleConnectionTestPeriodInMinutes: 60
+  maxConnectionsPerPartition: 10
+  minConnectionsPerPartition: 1
+  partitionCount: 2
+  acquireIncrement: 5
+  statementsCacheSize: 100
+
+async:
+  corePoolSize: 32
+  maxPoolSize: 16384
+  queueCapacity: 0
+  threadName: async-processor-
+
+flyway:
+  enabled: false
+
+system:
+  publicKey:
+    modulus: 20316095972838561707805633634118559285056087703178557869289275328875010993838546244668551422651540361681526297520764774936119636216423416473227232202399289203657904723956684099690501778574230932566907031819883692630290812932863787919504879204449540021058471125895372814469217322535566554635300050162368260229942523972443932393521026583330183725447586410915140367902859345381820849394617892603242613077230822192176236871920234821258915500472571858668100195028875485483109360144353322111155159558636329269774202964303531890397637934074461368953050770577664712448022171565316350989237110603097343045043682529063491220847
+    exponent: 65537
+    timestamp: 2017-04-18T09_44_22
