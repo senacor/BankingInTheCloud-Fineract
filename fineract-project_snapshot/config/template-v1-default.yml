@@ -41,7 +41,7 @@ eureka:
     enabled: true
 
 server:
-  port: 9100
+  port: 8086
   contextPath: /template/v1/*
   max-http-header-size: 16384
 
