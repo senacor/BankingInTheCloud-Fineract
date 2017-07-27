@@ -103,6 +103,13 @@ The core services containers have to be started before starting the function mic
 
 #### Running the core-services
 
+Important: If you have a mysql server running locally on your machine, you have to stop it first to release the default mysql port (the mariadb container is configured to use that port).
+
+Run this command in the terminal (works in the VM, for other setups you can check [this](https://askubuntu.com/questions/82374/how-do-i-start-stop-mysql-server)):
+```
+service mysql stop
+```
+
 You can just start the core services by running ```docker-compose up```:
 ```
 docker-compose up config discovery cassandra mariadb activemq
